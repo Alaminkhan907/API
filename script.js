@@ -5,9 +5,11 @@ function callApi(city) {
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         const userData=data;
         displayProperty(userData);
-      });
+      })
+      .catch(error =>alert("Wrong city Name"))
       
   }
 
@@ -17,12 +19,16 @@ function callApi(city) {
   }
  function displayProperty(dataAll){
     const cityName = dataAll.name;
-    console.log(cityName);
     document.getElementById("location").innerText = cityName;
     const currentTemp= dataAll.main.temp;
-    document.getElementById("current-temp").innerText = currentTemp;
-    console.log(currentTemp);
+    const temperature = (currentTemp- 273.15);
+    document.getElementById("current-temp").innerText = temperature;
     const skyType =dataAll['weather'][0]['description'];
-    console.log(typeof(skyType));
-    document.getElementById("lead").value = skyType;
+    if (skyType == true) {
+      console.log(skyType);
+      document.getElementById("sky").innerHTML =skyType;
+    }else {
+      console.log("value is null");
+    }
+    
  }
